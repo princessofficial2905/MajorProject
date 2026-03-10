@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banana-Carbon Fiber Nano ZnO-Epoxy Composites | B.Tech Major Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;500;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --gold-dim: #8B6914;
+      --gold-pale: #F5E6BB;
+      --black: #080808;
+      --black-soft: #111111;
+      --black-mid: #1A1A1A;
+      --black-card: #141414;
+      --white: #F9F5EC;
+      --white-dim: #C8C0AA;
+      --border: rgba(201,168,76,0.25);
+      --border-bright: rgba(201,168,76,0.6);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GOLD GRID BACKGROUND ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 48px 80px;
+      z-index: 1;
+    }
+
+    .hero-ornament {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+      margin: 0 auto 40px;
+      animation: fadeDown 1.2s ease both;
+    }
+
+    .hero-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeUp 1s ease 0.3s both;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--white);
+      max-width: 900px;
+      margin: 0 auto 28px;
+      animation: fadeUp 1s ease 0.5s both;
+    }
+
+    .hero-title em {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 32px auto;
+      width: 320px;
+      animation: fadeUp 1s ease 0.7s both;
+    }
+
+    .hero-divider::before,
+    .hero-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim));
+    }
+
+    .hero-divider::after {
+      background: linear-gradient(to left, transparent, var(--gold-dim));
+    }
+
+    .hero-divider-diamond {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .hero-subtitle {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+      animation: fadeUp 1s ease 0.9s both;
+    }
+
+    .hero-authors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 36px;
+      justify-content: center;
+      margin-top: 48px;
+      animation: fadeUp 1s ease 1.1s both;
+    }
+
+    .author-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .author-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gold-pale);
+    }
+
+    .author-id {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--white-dim);
+    }
+
+    .hero-supervisor {
+      margin-top: 32px;
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      letter-spacing: 0.1em;
+      animation: fadeUp 1s ease 1.3s both;
+    }
+
+    .hero-supervisor strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .hero-institution {
+      margin-top: 16px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      animation: fadeUp 1s ease 1.4s both;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: fadeUp 1s ease 1.6s both;
+    }
+
+    .scroll-cue span {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── CONTENT WRAPPER ── */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .section-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--gold-dim);
+      line-height: 1;
+      opacity: 0.5;
+    }
+
+    .section-meta {
+      flex: 1;
+    }
+
+    .section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    /* ── PROSE ── */
+    .prose p {
+      font-size: 0.95rem;
+      color: var(--white-dim);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+
+    .prose h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--gold-pale);
+      margin: 36px 0 14px;
+    }
+
+    .prose h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin: 28px 0 10px;
+    }
+
+    /* ── GOLD CARD ── */
+    .gold-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 36px 40px;
+      margin: 36px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gold-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at top right, rgba(201,168,76,0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .gold-card p {
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--white-dim);
+      line-height: 1.8;
+    }
+
+    /* ── APPLICATIONS GRID ── */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .app-card {
+      background: var(--black-mid);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .app-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .app-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold-dim), var(--gold-light), var(--gold-dim));
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+
+    .app-card:hover::after { transform: scaleX(1); }
+
+    .app-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .app-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .app-text {
+      font-size: 0.88rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+    }
+
+    /* ── TABLE ── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 32px 0;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    thead {
+      background: rgba(201,168,76,0.1);
+    }
+
+    thead th {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-bright);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    tbody tr:hover { background: rgba(201,168,76,0.04); }
+
+    tbody td {
+      padding: 12px 18px;
+      color: var(--white-dim);
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      color: var(--gold-pale);
+      font-weight: 400;
+    }
+
+    /* ── LIT REVIEW TABLE ── */
+    .lit-table thead th { font-size: 0.58rem; }
+    .lit-table tbody td { font-size: 0.78rem; padding: 10px 14px; }
+
+    /* ── METHODOLOGY STEPS ── */
+    .method-steps {
+      display: grid;
+      gap: 0;
+      margin-top: 40px;
+      position: relative;
+    }
+
+    .method-steps::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 40px;
+      bottom: 40px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+    }
+
+    .method-step {
+      display: flex;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      color: var(--gold);
+      width: 56px;
+      flex-shrink: 0;
+      padding-top: 4px;
+      letter-spacing: 0.1em;
+    }
+
+    .step-body h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .step-body p {
+      font-size: 0.88rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+    }
+
+    /* ── FORMULA BOX ── */
+    .formula-block {
+      background: var(--black-soft);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 20px 28px;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: var(--gold-pale);
+      overflow-x: auto;
+      line-height: 2;
+    }
+
+    /* ── RESULTS STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .stat-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+    }
+
+    .stat-sub {
+      font-size: 0.72rem;
+      color: var(--gold-dim);
+      margin-top: 6px;
+    }
+
+    /* ── OBJECTIVES LIST ── */
+    .obj-list {
+      list-style: none;
+      margin-top: 32px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .obj-list li {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px 24px;
+      background: var(--black-mid);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .obj-list li:hover { border-color: var(--gold-dim); }
+
+    .obj-bullet {
+      width: 24px;
+      height: 24px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .obj-bullet::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .obj-text {
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      line-height: 1.65;
+    }
+
+    /* ── CONCLUSION BOX ── */
+    .conclusion-highlight {
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+      border: 1px solid var(--border-bright);
+      padding: 48px;
+      margin: 40px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .conclusion-highlight::before,
+    .conclusion-highlight::after {
+      content: '◆';
+      position: absolute;
+      font-size: 0.6rem;
+      color: var(--gold);
+    }
+
+    .conclusion-highlight::before { top: 16px; left: 20px; }
+    .conclusion-highlight::after { bottom: 16px; right: 20px; }
+
+    .conclusion-highlight p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.8;
+    }
+
+    /* ── REFERENCES ── */
+    .ref-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .ref-list li {
+      display: flex;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+      transition: border-color 0.3s;
+    }
+
+    .ref-list li:hover { border-color: var(--gold-dim); }
+
+    .ref-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      color: var(--gold-dim);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .ref-list a {
+      color: var(--gold-dim);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .ref-list a:hover { color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 60px 48px 48px;
+      text-align: center;
+      background: var(--black-soft);
+    }
+
+    .footer-ornament {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--white-dim);
+      margin-bottom: 24px;
+    }
+
+    .footer-bottom {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-gold-line {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+      margin: 24px auto;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.3); }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MATERIAL PROPERTIES TABLE ── */
+    .mat-props {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .mat-prop-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+
+    .mat-prop-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mat-prop-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+    }
+
+    .mat-prop-row span:last-child {
+      color: var(--gold-pale);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+    }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      padding: 3px 12px;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      margin: 0 6px 6px 0;
+      font-family: 'Jost', sans-serif;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 80px; }
+      .content { padding: 0 24px; }
+      .section { padding: 70px 0; }
+      footer { padding: 48px 24px 36px; }
+      .hero-divider { width: 220px; }
+      .hero-authors { gap: 10px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">B.Tech Major Project · 2025</div>
+    <ul class="nav-links">
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#literature">Literature</a></li>
+      <li><a href="#methodology">Methodology</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#conclusions">Conclusions</a></li>
+      <li><a href="#references">References</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-ornament"></div>
+    <p class="hero-tag">Major Project Report · B.Tech Mechanical & Automation Engineering</p>
+    <h1 class="hero-title">
+      Characterization and Optimization of<br>
+      <em>Banana–Carbon Fiber Reinforced</em><br>
+      Nano ZnO–Epoxy Composites
+    </h1>
+    <div class="hero-divider"><div class="hero-divider-diamond"></div></div>
+    <p class="hero-subtitle">Indira Gandhi Delhi Technical University for Women · Kashmere Gate, Delhi</p>
+
+    <div class="hero-authors">
+      <div class="author-chip">
+        <span class="author-name">Ananya Sharma</span>
+        <span class="author-id">07301042021</span>
+      </div>
+      <div class="author-chip">
+        <span class="author-name">Tamanna Mann</span>
+        <span class="author-id">00301042021</span>
+      </div>
+      <div class="author-chip">
+        <span class="author-name">Princess</span>
+        <span class="author-id">01601042021</span>
+      </div>
+      <div class="author-chip">
+        <span class="author-name">Palak</span>
+        <span class="author-id">02501042021</span>
+      </div>
+    </div>
+
+    <p class="hero-supervisor">Under the supervision of <strong>Dr. Subhash Singh</strong> · MAE Department</p>
+    <p class="hero-institution">Department of Mechanical &amp; Automation Engineering · 2021–2025</p>
+
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ABSTRACT -->
+  <div class="content">
+    <section class="section reveal" id="abstract">
+      <div class="section-header">
+        <span class="section-num">00</span>
+        <div class="section-meta">
+          <p class="section-label">Overview</p>
+          <h2 class="section-title">Abstract</h2>
+        </div>
+      </div>
+
+      <div class="gold-card">
+        <p>This research focuses on the development and analysis of a hybrid composite material composed of banana fibers, carbon fibers, nano zinc oxide (ZnO) fillers, and an epoxy matrix. With the growing demand for sustainable, lightweight, and high-performance materials, this study integrates natural and synthetic fibers with advanced nano-fillers to enhance the composite's mechanical properties.</p>
+      </div>
+
+      <div class="prose">
+        <p>The investigation primarily aims to determine the elastic properties of the composite using analytical approaches, specifically the <strong style="color:var(--gold-pale)">Chamis</strong> and <strong style="color:var(--gold-pale)">Modified Halpin-Tsai</strong> models. These methods predict key parameters including longitudinal modulus, transverse modulus, shear modulus, and Poisson's ratio, which provide insights into the composite's stiffness, flexibility, and load-bearing capabilities.</p>
+        <p>The study systematically varied the composition of banana fibers, carbon fibers, and ZnO fillers to identify the optimal combination for superior mechanical performance. The results showed that the composite with <strong style="color:var(--gold-light)">3% ZnO</strong> exhibited the best mechanical properties, demonstrating an ideal balance between strength and flexibility. This hybrid composite demonstrates great potential for use in structural and industrial applications, including automotive, aerospace, and marine industries.</p>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <span class="badge">Hybrid Composites</span>
+        <span class="badge">Nano ZnO</span>
+        <span class="badge">Banana Fiber</span>
+        <span class="badge">Carbon Fiber</span>
+        <span class="badge">Chamis Model</span>
+        <span class="badge">Halpin-Tsai Model</span>
+        <span class="badge">FEA · ANSYS APDL</span>
+        <span class="badge">Sustainable Materials</span>
+      </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="section reveal" id="introduction">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <div class="section-meta">
+          <p class="section-label">Chapter One</p>
+          <h2 class="section-title">Introduction</h2>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>Background &amp; Demand for Sustainability</h3>
+        <p>The growing global concern for sustainability has fuelled a huge interest in sustainable production of materials, with this new development in natural fibre-reinforced composites. The growing trend is attributed to a necessity to minimize the use of synthetic non-biodegradable material and lower environmental impacts. Natural fibres, which are made from renewable sources, offer a highly plausible alternative — they are light, affordable, and biodegradable.</p>
+        <p>Growing environmental issues and depleting fossil fuels have pushed the need for sustainable materials. Natural fibre composites are perfectly in sync with the circular economy model, where they use recyclable material and minimize wastage. The shift towards sustainability is not just a green imperative but also an economic one, generating innovations and new markets for bio-based products.</p>
+
+        <h3>Natural vs Synthetic Fibres</h3>
+        <p>Natural fibres of plant, animal, or mineral origin are increasingly being utilized as reinforcement in composites. Out of all natural fibres, <strong style="color:var(--gold-pale)">banana fibres</strong> have found great interest as they are rich in composition, cost-effective, and possess good mechanical properties. Extracted from banana pseudo-stems, they represent significant agricultural waste recovery.</p>
+        <p>While synthetic fibres like carbon fibres possess better mechanical properties — high strength and stiffness — natural fibres enjoy sustainability advantages. To leverage both, researchers have developed hybrid composites, combining various types of fibres into a single matrix to create synergistic optimal performance.</p>
+
+        <h3>Why Nano-ZnO?</h3>
+        <p>Nano zinc oxide (ZnO) is a functionally versatile metal oxide that makes it highly desirable to introduce into composite materials:</p>
+      </div>
+
+      <div class="mat-props">
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">🔥 Thermal Stability</div>
+          <p style="font-size:0.83rem;color:var(--white-dim);line-height:1.6">Nano ZnO increases thermal stability, critical for components exposed to high-temperature environments like engine covers and heat shields.</p>
+        </div>
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">⚙️ Mechanical Properties</div>
+          <p style="font-size:0.83rem;color:var(--white-dim);line-height:1.6">Addition of nano ZnO results in remarkable improvement in tensile strength, stiffness, and hardness through improved load transfer and interfacial adhesion.</p>
+        </div>
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">🛡️ Antimicrobial</div>
+          <p style="font-size:0.83rem;color:var(--white-dim);line-height:1.6">ZnO possesses strong antimicrobial properties, critical for medical, packaging, and textile applications requiring hygiene and microbial resistance.</p>
+        </div>
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">🔬 Nano-Scale Benefit</div>
+          <p style="font-size:0.83rem;color:var(--white-dim);line-height:1.6">Nano-particles possess high surface area-to-volume ratio, enabling good dispersion, higher interfacial area, and more interaction with the polymer matrix and fibres.</p>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:40px">
+        <h3>Applications</h3>
+      </div>
+
+      <div class="apps-grid">
+        <div class="app-card">
+          <div class="app-icon">🚗</div>
+          <div class="app-title">Automotive Industry</div>
+          <p class="app-text">Door panels, dashboards, seat frames, outer body panels — banana-carbon hybrid composites reduce weight while improving fuel efficiency. Nano ZnO thermal stability is crucial for engine covers and heat shields. Especially impactful for electric vehicles where weight reduction directly extends driving range.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-icon">🏥</div>
+          <div class="app-title">Medical Field</div>
+          <p class="app-text">Biodegradable natural fibre composites for short-term implants and drug delivery. Carbon fibre reinforced composites for orthopaedic implants, bone plates, screws, and joint replacements. ZnO's antibacterial properties reduce infection risk in surgical instruments and wound dressings.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-icon">🏗️</div>
+          <div class="app-title">Construction</div>
+          <p class="app-text">Non-structural products like partition walls and insulating panels. Structural members — beams, bridges, columns — where high stiffness is required. ZnO improves fire resistance and inhibits mould growth, enhancing indoor air quality. Prefabricated structures benefit from the lightness and easy installation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LITERATURE REVIEW -->
+    <section class="section reveal" id="literature">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <div class="section-meta">
+          <p class="section-label">Chapter Two</p>
+          <h2 class="section-title">Literature Review</h2>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>Natural fibre composites (NFCs) have been a major research focus for decades due to their presence as eco-friendly substitutes to synthetic fibre composites. NFCs are biologically renewable materials offering distinctive combinations of environmental advantages and attractive structural attributes.</p>
+        <p>Although NFCs carry several benefits, key challenges include their hydrophilic nature causing water absorption, dimensional instability, poor interfacial adhesion with hydrophobic polymer matrices, and inhomogeneity in fibre properties across species and cultivation conditions.</p>
+      </div>
+
+      <div class="table-wrapper reveal" style="margin-top:40px">
+        <table class="lit-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Research Paper Title</th>
+              <th>Author(s)</th>
+              <th>Year</th>
+              <th>Key Findings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Evaluation of mechanical properties for banana-carbon fiber reinforced nano-clay epoxy composite</td><td>Saxena T., Chawla V.K.</td><td>2022</td><td>3% nano-clay reinforcement provided optimal mechanical properties; Chamis model outperformed others for elastic properties</td></tr>
+            <tr><td>2</td><td>Effect of fiber orientations and their weight percentage on banana fiber-based hybrid composite</td><td>Saxena T., Chawla V.K.</td><td>2021</td><td>Sisal-banana-glass fiber sequence at specific orientations improved toughness and distortion resistance</td></tr>
+            <tr><td>3</td><td>FEA-based analysis of mechanical properties of banana fiber composites</td><td>Gupta S., Kumar A., et al.</td><td>2020</td><td>FEA analysis confirmed enhanced mechanical performance under various loading conditions</td></tr>
+            <tr><td>4</td><td>Hybrid composites for automotive applications</td><td>Kumar R., Dixit A., et al.</td><td>2019</td><td>Hybrid composites with natural fibers show promise due to enhanced strength-to-weight ratios</td></tr>
+            <tr><td>5</td><td>Analysis of elastic moduli of heterogeneous materials</td><td>Halpin-Tsai J.C.</td><td>1969</td><td>Introduced simplified micromechanical equations to analyze elastic moduli in composite materials</td></tr>
+            <tr><td>6</td><td>Average stress in matrix and average elastic energy of materials with misfitting inclusions</td><td>Mori T., Tanaka K.</td><td>1973</td><td>Proposed models for average stress and energy in composites with misfitting inclusions</td></tr>
+            <tr><td>7</td><td>Simplified composite micromechanics equations for analysis and design</td><td>Chamis C.C.</td><td>1984</td><td>Developed simplified equations to predict composite behavior based on micromechanics</td></tr>
+            <tr><td>8</td><td>Tensile features of hybrid banana-glass fibers</td><td>Jayasekaran et al.</td><td>2022</td><td>Hybrid banana-glass fibers exhibited improved tensile strength compared to single-fiber composites</td></tr>
+            <tr><td>9</td><td>Impact of Nano-fillers in Strength Enhancement</td><td>Singh T., Kaur M., et al.</td><td>2018</td><td>Nano-fillers enhance polymer composite strength; ZnO and silica showing the most significant effects</td></tr>
+            <tr><td>10</td><td>Thermal properties of bio-composites</td><td>Kumar N., Sharma R.</td><td>2017</td><td>Bio-composites show improved thermal properties compared to traditional materials at high temperatures</td></tr>
+            <tr><td>11</td><td>Mechanical properties of sisal and banana fibers reinforced hybrid composites</td><td>Materials Letters</td><td>2020</td><td>Combined sisal and banana fibers enhance mechanical properties compared to individual fiber composites</td></tr>
+            <tr><td>12</td><td>Thermal and mechanical properties of nano-clay epoxy composites</td><td>Zhan et al.</td><td>2021</td><td>Nano-clay enhanced the thermal and mechanical properties of epoxy composites under high stress</td></tr>
+            <tr><td>13</td><td>Experimental validation of FEA models in hybrid composites</td><td>Lin et al.</td><td>2022</td><td>Experimental results validated FEA models for predicting mechanical properties of hybrid composites</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose reveal" style="margin-top:48px">
+        <h3>Research Gaps</h3>
+        <p>Despite significant progress, key gaps remain. The most apparent gap is in the efficient use of hybrid composites where different fibre types are combined for synergistic property improvements. Specifically, blending banana fibres with high-strength carbon fibres as a hybrid composite structure requires thorough study. Additionally, optimal concentration, dispersion, and interaction mechanisms of nano-fillers within composite matrices remain undetermined.</p>
+        <h3>Research Objectives</h3>
+      </div>
+
+      <ul class="obj-list reveal">
+        <li>
+          <div class="obj-bullet"></div>
+          <span class="obj-text"><strong style="color:var(--white)">Optimal proportion identification</strong> — Identify the optimal mixture of banana fibres, carbon fibres, and nano ZnO in an epoxy matrix for optimal combination of mechanical properties, stiffness, and functional attributes.</span>
+        </li>
+        <li>
+          <div class="obj-bullet"></div>
+          <span class="obj-text"><strong style="color:var(--white)">Chamis analytical model analysis</strong> — Use the Chamis micromechanical model to calculate elastic properties for different composite compositions and compare estimated values of elastic modulus, Poisson's ratio, and shear modulus.</span>
+        </li>
+        <li>
+          <div class="obj-bullet"></div>
+          <span class="obj-text"><strong style="color:var(--white)">Modified Halpin-Tsai model analysis</strong> — Utilize the Modified Halpin-Tsai model for estimation of elastic properties and compare with Chamis model results to establish precision and limitations of both models.</span>
+        </li>
+        <li>
+          <div class="obj-bullet"></div>
+          <span class="obj-text"><strong style="color:var(--white)">Validation against literature</strong> — Verify results obtained from analytical models by comparing them with experimental results and literature to check validity and credibility of the models.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section class="section reveal" id="methodology">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <div class="section-meta">
+          <p class="section-label">Chapter Three</p>
+          <h2 class="section-title">Proposed Methodology</h2>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>Materials &amp; Composite Design</h3>
+        <p>The material composition includes banana fibre, carbon fibre, epoxy resin, and nano Zinc Oxide (ZnO) as reinforcement. The composite was prepared in a multi-layer form, with alternating 0° oriented carbon fibres and 90° oriented banana fibres to achieve maximum mechanical properties. ZnO nanoparticles were incorporated into the epoxy matrix for uniform distribution of reinforcement.</p>
+      </div>
+
+      <div class="mat-props reveal" style="margin:32px 0">
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">🌿 Banana Fibers</div>
+          <div class="mat-prop-row"><span>E₁₁ (MPa)</span><span>3,480</span></div>
+          <div class="mat-prop-row"><span>ν₁₂</span><span>0.28</span></div>
+          <div class="mat-prop-row"><span>ρ (kg/m³)</span><span>1,350</span></div>
+          <p style="font-size:0.75rem;color:var(--white-dim);margin-top:10px">Chosen for biodegradable nature, high tensile strength, and flexibility</p>
+        </div>
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">⚫ Carbon Fibers</div>
+          <div class="mat-prop-row"><span>E₁₁ (MPa)</span><span>230,000</span></div>
+          <div class="mat-prop-row"><span>E₂₂ (MPa)</span><span>15,000</span></div>
+          <div class="mat-prop-row"><span>G₁₂ (MPa)</span><span>15,000</span></div>
+          <div class="mat-prop-row"><span>ν₁₂</span><span>0.20</span></div>
+          <div class="mat-prop-row"><span>ρ (kg/m³)</span><span>2,260</span></div>
+        </div>
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">🧪 Epoxy Matrix</div>
+          <div class="mat-prop-row"><span>E₁₁ (MPa)</span><span>35,000</span></div>
+          <div class="mat-prop-row"><span>G₁₂ (MPa)</span><span>3,200</span></div>
+          <div class="mat-prop-row"><span>ν₁₂</span><span>0.35</span></div>
+          <div class="mat-prop-row"><span>ρ (kg/m³)</span><span>1,270</span></div>
+          <p style="font-size:0.75rem;color:var(--white-dim);margin-top:10px">Good adhesion, high strength, and durability for structural stability</p>
+        </div>
+        <div class="mat-prop-card">
+          <div class="mat-prop-title">🔬 Nano ZnO</div>
+          <div class="mat-prop-row"><span>E₁₁ (MPa)</span><span>184,000</span></div>
+          <div class="mat-prop-row"><span>E₂₃ (MPa)</span><span>206,000</span></div>
+          <div class="mat-prop-row"><span>G₁₂ (MPa)</span><span>56,000</span></div>
+          <div class="mat-prop-row"><span>ν₁₂</span><span>0.33</span></div>
+          <div class="mat-prop-row"><span>ρ (kg/m³)</span><span>5,610</span></div>
+        </div>
+      </div>
+
+      <div class="prose reveal">
+        <h3>3.1 Chamis Model</h3>
+        <p>The Chamis model is a well-known micromechanical model to estimate elastic properties of composites reinforced with fibres. It assumes perfect matrix-fibre adhesion, isotropic fibre orientation, and uniform filler distribution — providing stiffness and load-carrying capacity estimates.</p>
+      </div>
+
+      <div class="formula-block reveal">
+        Vf = (mf/ρf) / (mf/ρf + mm/ρm)      [Fiber Volume Fraction]<br>
+        Vm = 1 - Vf                            [Matrix Volume Fraction]<br><br>
+        E₁₁ = Vfb · E₁₁fb + Vmx · Emx         [Longitudinal Elastic Modulus]<br>
+        E₂₂ = Emx / (1 − √Vfb)                [Transverse Elastic Modulus]<br>
+        G₁₂ = Gmx / (1 − √Vfb)                [In-Plane Shear Modulus]<br>
+        G₂₃ = Gmx / [1 − √Vfb(1 − Gmx/G₂₃fb)] [Transverse Shear Modulus]<br>
+        ν₁₂ = Vfb · ν₁₂fb + Vmx · νmx         [In-Plane Poisson's Ratio]<br>
+        ν₂₃ = (E₂₂ / E₁₁) × ν₁₂               [Transverse Poisson's Ratio]
+      </div>
+
+      <div class="prose reveal" style="margin-top:40px">
+        <h3>3.2 Modified Halpin-Tsai Model</h3>
+        <p>The Modified Halpin-Tsai model incorporates the effects of filler geometry, size, and volume fraction on the composite's stiffness. It is particularly effective for composites with nano-fillers, incorporating filler-matrix interaction to improve mechanical property prediction accuracy.</p>
+      </div>
+
+      <div class="formula-block reveal">
+        E₂ = Emx · (1 + ξₑ₂ · ηₑ₂ · Vcf) / (1 − ξₑ₂ · Vcf)<br>
+        G₁₂ = Gmx · (1 + ξg₁₂ · ηg₁₂ · Vcf) / (1 − ηg₁₂ · Vcf)<br><br>
+        Where Vcf &lt; 0.3:<br>
+        ηₑ₂  = (E₂cf / Emx) − 1<br>
+        ξₑ₂  = 4.924 − 35.888·Vcf + 125.118·Vcf² − 145.121·Vcf³<br>
+        ξg₁₂ = 1 + 40·Vcf¹⁰<br><br>
+        E₁ = E₁cf·Vcf + E₁bf·Vbf + Emx·Vmx + Enc·Vnc + Eip·Vip<br>
+        ν₁₂ = ν₁₂cf·Vcf + ν₁₂bf·Vbf + νmx·Vmx + νnc·Vnc + νip·Vip
+      </div>
+
+      <div class="prose reveal" style="margin-top:40px">
+        <h3>3.3 Finite Element Analysis (FEA)</h3>
+        <p>ANSYS APDL was employed for analysis of the mechanical performance of banana-carbon fibre-reinforced nano ZnO-epoxy composites. The composite structure was simulated as a layered composite with periodic alternating 90° and 0° arrangement of banana and carbon fibres.</p>
+        <h4>Model Dimensions</h4>
+      </div>
+
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-value">200</div>
+          <div class="stat-label">Length</div>
+          <div class="stat-sub">millimetres</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">30</div>
+          <div class="stat-label">Width</div>
+          <div class="stat-sub">millimetres</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Layers</div>
+          <div class="stat-sub">0.5 mm each</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2.5</div>
+          <div class="stat-label">Total Thickness</div>
+          <div class="stat-sub">millimetres</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">460</div>
+          <div class="stat-label">Mesh Nodes</div>
+          <div class="stat-sub">SHELL 181 element</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8 kN</div>
+          <div class="stat-label">Applied Load</div>
+          <div class="stat-sub">at 20 central nodes</div>
+        </div>
+      </div>
+
+      <div class="method-steps reveal" style="margin-top:40px">
+        <div class="method-step">
+          <div class="step-num">PRE-<br>PROC.</div>
+          <div class="step-body">
+            <h4>Material Modelling &amp; Geometry Creation</h4>
+            <p>Elastic, thermal, and failure characteristics specified in ANSYS material library. A 3D model of the composite structure (RVE) is created, with layers assigned at orientations: Banana Fiber (90°) → Carbon Fiber (0°) → ZnO (90°) → Carbon Fiber (0°) → Banana Fiber (90°).</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="step-num">SOLU-<br>TION</div>
+          <div class="step-body">
+            <h4>Boundary Conditions &amp; Load Application</h4>
+            <p>Composite sample ends constrained completely (DOF = 0), preventing rotation or displacement. An aggregate load of 8 kN applied at 20 nodes in the center for even stress distribution, simulating actual mechanical stress conditions realistically.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="step-num">POST-<br>PROC.</div>
+          <div class="step-body">
+            <h4>Results Interpretation &amp; Validation</h4>
+            <p>Stress distribution, strain energy, deformation, and failure modes analyzed through contour plots and numerical outputs. Simulated results validated against physical test data for reliability and accuracy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="section reveal" id="results">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <div class="section-meta">
+          <p class="section-label">Chapter Four</p>
+          <h2 class="section-title">Results &amp; Discussion</h2>
+        </div>
+      </div>
+
+      <div class="prose">
+        <h3>4.1 Chamis Model — Composite Configurations</h3>
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Config.</th>
+              <th>Banana %</th>
+              <th>Carbon %</th>
+              <th>Epoxy %</th>
+              <th>ZnO %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>I</td><td>20%</td><td>60%</td><td>19%</td><td>1%</td></tr>
+            <tr><td>II</td><td>20%</td><td>60%</td><td>18%</td><td>2%</td></tr>
+            <tr><td>III</td><td>20%</td><td>60%</td><td>17%</td><td>3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose reveal" style="margin-top:32px">
+        <h4>Volume Fractions (Chamis)</h4>
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Config.</th>
+              <th>Carbon Vfb</th>
+              <th>Carbon Vmx</th>
+              <th>Banana Vfb</th>
+              <th>Banana Vmx</th>
+              <th>ZnO Vfb</th>
+              <th>ZnO Vmx</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>I</td><td>0.64</td><td>0.36</td><td>0.49</td><td>0.51</td><td>0.011</td><td>0.989</td></tr>
+            <tr><td>II</td><td>0.65</td><td>0.35</td><td>0.51</td><td>0.49</td><td>0.024</td><td>0.976</td></tr>
+            <tr><td>III</td><td>0.66</td><td>0.34</td><td>0.53</td><td>0.47</td><td>0.038</td><td>0.962</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose reveal" style="margin-top:40px">
+        <h3>Chamis Model — Elastic Properties</h3>
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th colspan="3" style="text-align:center;border-left:1px solid rgba(201,168,76,0.2)">Config. I (1% ZnO)</th>
+              <th colspan="3" style="text-align:center;border-left:1px solid rgba(201,168,76,0.2)">Config. II (2% ZnO)</th>
+              <th colspan="3" style="text-align:center;border-left:1px solid rgba(201,168,76,0.2)">Config. III (3% ZnO)</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>Banana</th><th>Carbon</th><th>ZnO</th>
+              <th>Banana</th><th>Carbon</th><th>ZnO</th>
+              <th>Banana</th><th>Carbon</th><th>ZnO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>E₁₁ (MPa)</td><td>1.95×10⁴</td><td>1.59×10⁵</td><td>3.66×10⁴</td><td>1.89×10⁴</td><td>1.61×10⁵</td><td>3.85×10⁴</td><td>1.82×10⁴</td><td>1.63×10⁵</td><td>1.03×10⁴</td></tr>
+            <tr><td>E₂₂=E₃₃ (MPa)</td><td>—</td><td>5.25×10⁴</td><td>3.83×10⁴</td><td>—</td><td>1.68×10⁴</td><td>4.01×10⁴</td><td>—</td><td>1.68×10⁴</td><td>4.17×10⁴</td></tr>
+            <tr><td>G₁₂=G₁₃ (MPa)</td><td>—</td><td>4.3×10³</td><td>9.5×10³</td><td>—</td><td>4.3×10³</td><td>1.02×10⁴</td><td>—</td><td>4.4×10³</td><td>1.08×10⁴</td></tr>
+            <tr><td>G₂₃ (MPa)</td><td>—</td><td>5.65×10³</td><td>3.5×10³</td><td>—</td><td>5.6×10³</td><td>3.7×10³</td><td>—</td><td>5.7×10³</td><td>3.9×10³</td></tr>
+            <tr><td>ν₁₂=ν₃₁</td><td>0.31</td><td>0.25</td><td>0.34</td><td>0.31</td><td>0.25</td><td>0.34</td><td>0.31</td><td>0.25</td><td>0.34</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose reveal" style="margin-top:48px">
+        <h3>4.2 Modified Halpin-Tsai Results</h3>
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Nano ZnO %</th>
+              <th>E₁ (MPa)</th>
+              <th>ν₁₂</th>
+              <th>E₂ (MPa)</th>
+              <th>G₁₂ (MPa)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1%</td><td>1.35 × 10⁵</td><td>1.04</td><td>2.34 × 10⁵</td><td>6.17 × 10⁴</td></tr>
+            <tr><td>2%</td><td>1.19 × 10⁵</td><td>0.26</td><td>2.31 × 10⁵</td><td>6.19 × 10⁴</td></tr>
+            <tr><td>3%</td><td>4.08 × 10⁴</td><td>0.28</td><td>2.50 × 10⁵</td><td>1.50 × 10⁴</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose reveal" style="margin-top:48px">
+        <h3>4.3 FEA — Vector Sum Deformation</h3>
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>ZnO %</th>
+              <th>E₁ (MPa)</th>
+              <th>ν₁₂</th>
+              <th>E₂ (MPa)</th>
+              <th>G₁₂ (MPa)</th>
+              <th>Deformation (mm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1%</td><td>18,217</td><td>0.11</td><td>11,376</td><td>2,120</td><td style="color:var(--gold-pale);font-weight:500">0.343824</td></tr>
+            <tr><td>2%</td><td>18,884</td><td>0.11</td><td>11,764</td><td>2,149</td><td style="color:var(--gold-light);font-weight:500">0.284339 ← minimum</td></tr>
+            <tr><td>3%</td><td>19,547</td><td>0.12</td><td>11,367</td><td>2,200</td><td style="color:var(--gold-pale);font-weight:500">0.317524</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose reveal" style="margin-top:48px">
+        <h3>4.4 Model Comparison &amp; Error Analysis</h3>
+        <p>Results indicated that the FE model gave E₁ values of 18,217 MPa, 18,884 MPa, and 19,547 MPa for 1%, 2%, and 3% ZnO composites, respectively. The Halpin-Tsai model predicted the highest longitudinal modulus with extremely high predicted values, whereas the Chamis model was less accurate for transverse modulus and shear modulus.</p>
+        <p>For transverse modulus (E₂), the FE model gave 11,376 MPa, 11,764 MPa, and 11,367 MPa. Chamis model predictions were very high (38,300 MPa, 40,100 MPa, and 41,700 MPa) with large deviations. The Halpin-Tsai model, though improved over Chamis, still reported discrepancies with FEA results.</p>
+        <p>The Halpin-Tsai model showed the highest average error in estimation of ν₁₂ (Poisson's ratio), overestimating it significantly — values of 1.04, 0.26, and 0.28 against FEA values of 0.11, 0.11, and 0.12, respectively.</p>
+      </div>
+
+      <div class="prose reveal" style="margin-top:48px">
+        <h3>4.5 Experimental Testing Methodology</h3>
+        <p>ZnO composite samples were fabricated using the hand lay-up technique and underwent post-curing at room temperature for 24 hours, followed by 80°C for 3 hours for maximum cross-linking. Physical testing per ASTM standards:</p>
+      </div>
+
+      <div class="apps-grid reveal" style="margin-top:24px">
+        <div class="app-card">
+          <div class="app-title">Tensile Testing · ASTM D3039</div>
+          <p class="app-text">Universal testing machine at 2 mm/min crosshead speed. Results: 1% ZnO → 45 MPa · 2% ZnO → 52 MPa · 3% ZnO → 48 MPa. Optimal at 2% ZnO.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-title">Flexural Testing · ASTM D790</div>
+          <p class="app-text">Three-point bend test. Flexural strength highest at 2% ZnO, decreasing slightly at 3% due to nanoparticle agglomeration and non-uniform stress distribution.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-title">Impact Test · ASTM D256</div>
+          <p class="app-text">2% ZnO composite exhibited the highest impact resistance, stiffness, and toughness. Validated ZnO reinforcement's impact on energy absorption capacity.</p>
+        </div>
+        <div class="app-card">
+          <div class="app-title">SEM Analysis</div>
+          <p class="app-text">Scanning Electron Microscopy on fractured samples revealed ZnO agglomerates at 3% loading, confirming nanoparticle agglomeration decreased fibre-matrix adhesion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCLUSIONS -->
+    <section class="section reveal" id="conclusions">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <div class="section-meta">
+          <p class="section-label">Chapter Five</p>
+          <h2 class="section-title">Conclusions</h2>
+        </div>
+      </div>
+
+      <div class="conclusion-highlight reveal">
+        <p>The composite with 2% ZnO exhibited minimum deformation (0.284339 mm) and maximum structural stiffness, while 3% ZnO showed the best analytical mechanical properties — demonstrating an ideal balance between strength and flexibility for engineering applications.</p>
+      </div>
+
+      <div class="prose reveal">
+        <p>Preparation and characterization of a new hybrid composite material of banana fibres, carbon fibres, nano-zinc oxide, and epoxy resin has been very promising for engineering applications. The introduction of nano ZnO enhances composite mechanical properties through increased stiffness, tensile strength, and toughness. Thermal stability is also increased with ZnO nanoparticles, qualifying the material for high-temperature applications. The ratio of banana fibres to carbon fibres in the composite provides balance between stiffness and sustainability.</p>
+
+        <p>Analytical models (Chamis and Modified Halpin-Tsai) were compared to FEA analyses built on ANSYS software. Validation confirmed that the Halpin-Tsai model gave more accurate composite elastic predictions, while the Chamis model showed larger discrepancies for transverse moduli and shear moduli values. FEA predictions showed excellent agreement with test results, supporting the utility of computational solutions in predicting composite behaviour.</p>
+
+        <h3>Key Findings</h3>
+      </div>
+
+      <ul class="obj-list reveal">
+        <li><div class="obj-bullet"></div><span class="obj-text">Nano-fillers improve mechanical properties of composites up to an optimal percentage — beyond which agglomeration reduces effectiveness</span></li>
+        <li><div class="obj-bullet"></div><span class="obj-text">Hybrid composites with banana and carbon fibers show enhanced tensile strength and flexibility over single-fiber composites</span></li>
+        <li><div class="obj-bullet"></div><span class="obj-text">Analytical models like Chamis and Halpin-Tsai effectively predict elastic properties but show varying accuracy for different parameters</span></li>
+        <li><div class="obj-bullet"></div><span class="obj-text">The Halpin-Tsai model is more accurate for longitudinal elastic modulus (E₁), while FEA provides the most reliable overall prediction</span></li>
+        <li><div class="obj-bullet"></div><span class="obj-text">2% ZnO is the optimum reinforcement ratio for maximum strength, hardness, and minimum deformation (0.284339 mm)</span></li>
+        <li><div class="obj-bullet"></div><span class="obj-text">The composite demonstrates broad applicability in automotive, biomedical, and construction sectors</span></li>
+      </ul>
+
+      <div class="prose reveal" style="margin-top:40px">
+        <h3>Future Scope</h3>
+        <p>Nano ZnO content optimization remains a top priority, as higher content causes particle agglomeration with adverse effects. Research should continue to promote advanced dispersion techniques for nano-fillers to maximize reinforcing ability. Surface treatment procedures can develop interfacial adhesion between natural fibers and epoxy matrix for enhanced load transfer and longevity. Life cycle studies must be conducted to assess the environmental acceptability of NFCs comprehensively.</p>
+      </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section class="section reveal" id="references">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <div class="section-meta">
+          <p class="section-label">Bibliography</p>
+          <h2 class="section-title">References</h2>
+        </div>
+      </div>
+
+      <ol class="ref-list">
+        <li><span class="ref-num">01</span><span>Research on Engineering Structures and Materials (2022). Evaluation of mechanical properties for banana-carbon fiber reinforced nano-clay epoxy composite using analytical modeling and simulation, 8(4), 773-798. <a href="https://doi.org/10.17515/resm2022.403me0219" target="_blank">doi: 10.17515/resm2022.403me0219</a></span></li>
+        <li><span class="ref-num">02</span><span>Chamis, C.C. (1984). Simplified composite micromechanics equations for strength, fracture toughness, and environmental effects. NASA Technical Memorandum 83664.</span></li>
+        <li><span class="ref-num">03</span><span>Halpin, J.C., &amp; Kardos, J.L. (1976). The Halpin-Tsai equations: A review. Polymer Engineering &amp; Science, 16(5), 344-352. <a href="https://doi.org/10.1002/pen.760160512" target="_blank">doi: 10.1002/pen.760160512</a></span></li>
+        <li><span class="ref-num">04</span><span>Jones, R.M. (1999). Mechanics of Composite Materials (2nd ed.). CRC Press.</span></li>
+        <li><span class="ref-num">05</span><span>Mori, T., &amp; Tanaka, K. (1973). Average stress in matrix and average elastic energy of materials with misfitting inclusions. Acta Metallurgica, 21(5), 571-574.</span></li>
+        <li><span class="ref-num">06</span><span>Sharma, A., &amp; Singh, R. (2021). A study on mechanical properties of natural fiber composites reinforced with nano-fillers. Materials Today: Proceedings, 45, 567-573.</span></li>
+        <li><span class="ref-num">07</span><span>Mathew, M.T., &amp; Joseph, R. (2020). Influence of ZnO nanoparticle reinforcement on mechanical properties of hybrid composites. Journal of Applied Polymer Science, 137(20), 48897.</span></li>
+        <li><span class="ref-num">08</span><span>Sudheer, K., &amp; Prasad, G.S. (2022). Impact of nanoclay and ZnO on the mechanical and thermal properties of hybrid polymer composites. Materials Today: Proceedings, 56, 1234-1240.</span></li>
+        <li><span class="ref-num">09</span><span>Vinayagamoorthy, R., &amp; Manoharan, S. (2020). Effect of nano ZnO reinforcement on the mechanical behavior of natural fiber composites. Journal of Reinforced Plastics and Composites, 39(5), 201-213.</span></li>
+        <li><span class="ref-num">10</span><span>Mohanty, A.K., Misra, M., &amp; Drzal, L.T. (2005). Natural Fibers, Biopolymers, and Biocomposites. CRC Press.</span></li>
+        <li><span class="ref-num">11</span><span>Balasubramanian, M., &amp; Rajesh, S. (2021). Experimental study on hybrid composite laminates reinforced with ZnO nano-fillers. Composite Structures, 261, 113538.</span></li>
+        <li><span class="ref-num">12</span><span>Gibson, R.F. (2016). Principles of Composite Material Mechanics (4th ed.). CRC Press.</span></li>
+        <li><span class="ref-num">13</span><span>Liu, T., Liu, Q., &amp; Tao, Y. (2019). Finite element modeling of fiber-reinforced composites: A review. Composite Structures, 225, 111147.</span></li>
+        <li><span class="ref-num">14</span><span>Duflou, J.R., &amp; Kellens, K. (2018). Sustainable Composites Manufacturing. CIRP Annals, 67(1), 573-596.</span></li>
+        <li><span class="ref-num">15</span><span>Kumar, A. et al. (2023). Experimental and computational analysis of hybrid composites. Composite Structures, 267, 1-10.</span></li>
+      </ol>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-ornament">◆ IGDTUW · 2021–2025 ◆</div>
+    <div class="footer-title">
+      Characterization and Optimization of Banana–Carbon Fiber Reinforced Nano ZnO–Epoxy Composites
+    </div>
+    <div class="footer-gold-line"></div>
+    <div style="margin-bottom:16px">
+      <span class="badge">Ananya Sharma</span>
+      <span class="badge">Tamanna Mann</span>
+      <span class="badge">Princess</span>
+      <span class="badge">Palak</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--white-dim);margin-bottom:8px">Supervised by Dr. Subhash Singh · Department of Mechanical &amp; Automation Engineering</p>
+    <p style="font-size:0.78rem;color:var(--white-dim);margin-bottom:24px">Indira Gandhi Delhi Technical University for Women, Kashmere Gate, Delhi – 110006</p>
+    <div class="footer-bottom">B.Tech Major Project Report · Submitted April 2025 · All rights reserved</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Staggered children
+    document.querySelectorAll('.apps-grid, .stats-grid, .mat-props, .obj-list, .ref-list').forEach(grid => {
+      Array.from(grid.children).forEach((child, i) => {
+        child.style.transitionDelay = `${i * 0.07}s`;
+        child.classList.add('reveal');
+        observer.observe(child);
+      });
+    });
+  </script>
+</body>
+</html>
